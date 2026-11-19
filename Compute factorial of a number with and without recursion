@@ -1,0 +1,66 @@
+#include <stdio.h>
+
+// Factorial using recursion
+int factorial(int n)
+{
+    if (n == 0 || n == 1)
+        return 1;
+    else
+        return n * factorial(n - 1);
+}
+
+int main()
+{
+    int n, i, fact, choice;
+
+    while (1)
+    {
+        printf("\n1. Calculate Factorial");
+        printf("\n2. Exit");
+        printf("\nEnter your choice: ");
+
+        if (scanf("%d", &choice) != 1)
+        {
+            printf("Invalid input! Enter 1 or 2.\n");
+
+            while (getchar() != '\n');
+            continue;
+        }
+
+        if (choice == 2)
+        {
+            printf("Program exited.");
+            break;
+        }
+
+        if (choice != 1)
+        {
+            printf("Invalid choice! Try again.\n");
+            continue;
+        }
+
+        printf("Enter a number: ");
+
+        while (scanf("%d", &n) != 1 || n < 0)
+        {
+            printf("Invalid input! Enter a non-negative integer: ");
+
+            while (getchar() != '\n');
+        }
+
+        // Factorial without recursion
+        fact = 1;
+
+        for (i = 1; i <= n; i++)
+        {
+            fact = fact * i;
+        }
+
+        printf("Factorial without recursion = %d\n", fact);
+
+        // Factorial using recursion
+        printf("Factorial using recursion = %d\n", factorial(n));
+    }
+
+    return 0;
+}
