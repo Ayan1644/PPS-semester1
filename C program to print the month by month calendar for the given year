@@ -1,0 +1,135 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main()
+{
+    int choice;
+    int year;
+    int month;
+    int day;
+    int firstDay;
+    int numberOfDays;
+    int result;
+
+    struct tm date;
+
+    int daysInMonth[12] = {
+        31, 28, 31, 30, 31, 30,
+        31, 31, 30, 31, 30, 31
+    };
+
+    char *monthNames[12] = {
+        "January", "February", "March",
+        "April", "May", "June",
+        "July", "August", "September",
+        "October", "November", "December"
+    };
+
+    while (1)
+    {
+        printf("\n===== Calendar Menu =====\n");
+        printf("1. Generate calendar\n");
+        printf("2. Exit\n");
+        printf("Enter your choice: ");
+
+        result = scanf("%d", &choice);
+
+        if (result != 1)
+        {
+            printf("Error: Enter either 1 or 2.\n");
+
+            while (getchar() != '\n')
+            {
+            }
+
+            continue;
+        }
+
+        if (choice == 2)
+        {
+            printf("Program exited successfully.\n");
+            exit(0);
+        }
+
+        if (choice != 1)
+        {
+            printf("Error: Invalid choice.\n");
+            continue;
+        }
+
+        printf("Enter the year: ");
+        result = scanf("%d", &year);
+
+        if (result != 1)
+        {
+            printf("Error: Enter a valid whole number.\n");
+
+            while (getchar() != '\n')
+            {
+            }
+
+            continue;
+        }
+
+        if (year <= 0 || year > 9999)
+        {
+            printf("Error: Enter a year between 1 and 9999.\n");
+            continue;
+        }
+
+        daysInMonth[1] = 28;
+
+        if ((year % 400 == 0) ||
+            (year % 4 == 0 && year % 100 != 0))
+        {
+            daysInMonth[1] = 29;
+        }
+
+        printf("\nCalendar for the year %d\n", year);
+
+        for (month = 0; month < 12; month++)
+        {
+            date.tm_sec = 0;
+            date.tm_min = 0;
+            date.tm_hour = 12;
+            date.tm_mday = 1;
+            date.tm_mon = month;
+            date.tm_year = year - 1900;
+            date.tm_isdst = -1;
+
+            if (mktime(&date) == (time_t)-1)
+            {
+                printf("Error: Date calculation failed.\n");
+                break;
+            }
+
+            firstDay = date.tm_wday;
+            numberOfDays = daysInMonth[month];
+
+            printf("\n\n        %s %d\n",
+                   monthNames[month], year);
+
+            printf(" Sun Mon Tue Wed Thu Fri Sat\n");
+
+            for (day = 0; day < firstDay; day++)
+            {
+                printf("    ");
+            }
+
+            for (day = 1; day <= numberOfDays; day++)
+            {
+                printf("%4d", day);
+
+                if ((firstDay + day) % 7 == 0)
+                {
+                    printf("\n");
+                }
+            }
+
+            printf("\n");
+        }
+    }
+
+    return 0;
+}
