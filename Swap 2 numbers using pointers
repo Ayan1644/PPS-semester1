@@ -1,0 +1,54 @@
+#include <stdio.h>
+
+int main()
+{
+    int a, b, temp, choice;
+    int *p, *q;
+
+    while (1)
+    {
+        printf("\n1. Swap two numbers");
+        printf("\n2. Exit");
+        printf("\nEnter your choice: ");
+
+        if (scanf("%d", &choice) != 1)
+        {
+            printf("Error! Please enter a valid choice.\n");
+            return 0;
+        }
+
+        if (choice == 2)
+        {
+            printf("Exiting program...");
+            break;
+        }
+
+        if (choice == 1)
+        {
+            printf("\nEnter two numbers: ");
+
+            if (scanf("%d %d", &a, &b) != 2)
+            {
+                printf("Error! Please enter numbers only.\n");
+                return 0;
+            }
+
+            p = &a;
+            q = &b;
+
+            temp = *p;
+            *p = *q;
+            *q = temp;
+
+            printf("\nAfter swapping:\n");
+            printf("First number = %d\n", a);
+            printf("Second number = %d\n", b);
+        }
+        else
+        {
+            printf("Invalid choice! Please try again.\n");
+        }
+    }
+
+    return 0;
+}
