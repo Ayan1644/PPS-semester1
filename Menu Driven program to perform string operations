@@ -1,0 +1,90 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    int choice, result;
+    char str1[100], str2[100];
+    char copy[100], joined[201];
+
+    while (1)
+    {
+        printf("\n--- STRING OPERATIONS MENU ---\n");
+        printf("1. Find Length of String\n");
+        printf("2. Copy a String\n");
+        printf("3. Join Two Strings\n");
+        printf("4. Compare Two Strings\n");
+        printf("5. Exit\n");
+
+        printf("Enter your choice: ");
+
+        if (scanf("%d", &choice) != 1)
+        {
+            printf("Invalid input,enter a number from 1 to 5.\n");
+
+            while (getchar() != '\n');
+
+            continue;
+        }
+
+        switch (choice)
+        {
+            case 1:
+                printf("Enter a string: ");
+                scanf(" %99[^\n]", str1);
+
+                printf("Length of string = %lu\n",
+                       (unsigned long)strlen(str1));
+                break;
+
+            case 2:
+                printf("Enter a string: ");
+                scanf(" %99[^\n]", str1);
+
+                strcpy(copy, str1);
+
+                printf("Copied string = %s\n", copy);
+                break;
+
+            case 3:
+                printf("Enter first string: ");
+                scanf(" %99[^\n]", str1);
+
+                printf("Enter second string: ");
+                scanf(" %99[^\n]", str2);
+
+                strcpy(joined, str1);
+                strcat(joined, str2);
+
+                printf("Joined string = %s\n", joined);
+                break;
+
+            case 4:
+                printf("Enter first string: ");
+                scanf(" %99[^\n]", str1);
+
+                printf("Enter second string: ");
+                scanf(" %99[^\n]", str2);
+
+                result = strcmp(str1, str2);
+
+                if (result == 0)
+                    printf("Both strings are equal.\n");
+                else if (result < 0)
+                    printf("First string is smaller.\n");
+                else
+                    printf("First string is greater.\n");
+
+                break;
+
+            case 5:
+                printf("Stopping...\n");
+                return 0;
+
+            default:
+                printf("Invalid choice, enter a number from 1 to 5.\n");
+        }
+    }
+
+    return 0;
+}
