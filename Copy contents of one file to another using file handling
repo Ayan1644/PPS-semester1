@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+int main()
+{
+    FILE *source, *destination;
+    char ch;
+
+    source = fopen("source.txt", "r");
+
+    if (source == NULL)
+    {
+        printf("Source file cannot be opened.\n");
+        return 1;
+    }
+
+    destination = fopen("destination.txt", "w");
+
+    if (destination == NULL)
+    {
+        printf("Destination file cannot be opened.\n");
+        fclose(source);
+        return 1;
+    }
+
+    while (fscanf(source, "%c", &ch) != EOF)
+    {
+        fprintf(destination, "%c", ch);
+    }
+
+    fclose(source);
+    fclose(destination);
+
+    printf("File copied successfully.\n");
+
+    return 0;
+}
